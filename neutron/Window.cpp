@@ -4,6 +4,7 @@
 
 #include "Window.h"
 #include "Events.h"
+#include "Logger.h"
 
 #include <GLFW/glfw3.h>
 #include <thread>
@@ -22,16 +23,39 @@ namespace Neutron {
             glfwTerminate();
         }
 
-        /* Make the window's context current */
-        glfwMakeContextCurrent(window);
 
-        /* Loop until the user closes the window */
-        while (!glfwWindowShouldClose(window)) {
+        return window;
+    }
+
+    void Window::Constructor(char *title, int width, int height, bool fs) {
+        // Create Window
+        this->glfwWindow = CreateWindow(width, height, title, fs ? glfwGetPrimaryMonitor() : nullptr, nullptr);
+
+        windows.push_back(this);
+
+        if (this->glfwWindow == nullptr) {
+            delete this;
+        }
+
+        /* Make the window's context current */
+        glfwMakeContextCurrent(this->glfwWindow);
+
+        EventSystem::broadcast("windowCreated", false);
+        while (!glfwWindowShouldClose(this->glfwWindow)) {
+
+            Color col = this->bg.Normalise();
+
+            Logger::Log((std::string)col);
+
+            EventArgs eArgs = EventArgs();
+            eArgs["window"] = reinterpret_cast<std::any *>(this);
+
+            EventSystem::broadcast("update", eArgs);
             /* Render here */
-            glClearColor(0.25, 0.25, 0.25, 1);
-            glClear(GL_COLOR_BUFFER_BIT);
+            glClearColor(col.red, col.green, col.blue, col.alpha);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             /* Swap front and back buffers */
-            glfwSwapBuffers(window);
+            glfwSwapBuffers(this->glfwWindow);
 
             /* Poll for and process events */
             glfwPollEvents();
@@ -41,33 +65,6 @@ namespace Neutron {
                 std::cout << "ERROR " << err << std::endl;
             }
         }
-
-        return window;
-    }
-
-    void Window::Constructor(char *title, int width, int height, bool fs) {
-        // Create Window
-        this->glfwWindow = CreateWindow(width, height, title, fs ? glfwGetPrimaryMonitor() : nullptr, nullptr);
-
-        // Create Thread
-        std::thread([this]() {
-            /* Loop until the user closes the window */
-            while (!glfwWindowShouldClose(this->glfwWindow)) {
-                /* Render here */
-                glClearColor(1, 0, 0, 1);
-                glClear(GL_COLOR_BUFFER_BIT);
-                /* Swap front and back buffers */
-                glfwSwapBuffers(this->glfwWindow);
-
-                /* Poll for and process events */
-                glfwPollEvents();
-
-                GLenum err = glGetError();
-                if (err) {
-                    std::cout << "ERROR " << err << std::endl;
-                }
-            }
-        }).join();
     }
 
 // region Window definitions
@@ -98,9 +95,15 @@ namespace Neutron {
 // endregion
 
     Window::~Window() {
-        std::cout << "window destroyed?" << std::endl;
         if (this->glfwWindow) {
             glfwDestroyWindow(this->glfwWindow);
+        }
+
+        windows.remove(this);
+
+        // Terminate GLFW if no more windows exist
+        if (windows.empty()) {
+            glfwTerminate();
         }
     }
 }

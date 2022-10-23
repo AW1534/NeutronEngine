@@ -5,6 +5,8 @@
 #ifndef NEUTRONENGINE_VECTOR2_H
 #define NEUTRONENGINE_VECTOR2_H
 
+#include <string>
+
 namespace Neutron {
     class Vector2 {
     public:
@@ -26,7 +28,7 @@ namespace Neutron {
         Vector2 operator * (int);
         Vector2 operator / (int);
 
-        char const* toChars() const;
+        explicit operator std::string() const;
     };
 }
 

@@ -5,20 +5,19 @@
 #ifndef NEUTRONENGINE_EVENTS_H
 #define NEUTRONENGINE_EVENTS_H
 
-
 #include <map>
 #include <vector>
 #include <functional>
 #include <string>
 #include <any>
+#include "Window.h"
 
 namespace Neutron {
-    typedef std::map<std::string, std::any>EventArgs;
-    typedef std::function<void(EventArgs)>Callback;
+    typedef std::map<std::string, std::any*> EventArgs;
+    typedef std::function<void(EventArgs)> Callback;
 
     class Event {
     public:
-
         char* name;
         std::vector<std::function<void(EventArgs)>> listeners = {};
         bool supportMultithread = true;
@@ -32,12 +31,13 @@ namespace Neutron {
         void Constructor(char *name, bool supportMultithread, bool reg);
     };
 
-    typedef std::map<std::string, Event*>EventMap;
+    typedef std::map<std::string, Event*> EventMap;
 
     class EventSystem {
     public:
         static EventMap events;
         static void broadcast(char *event, EventArgs data, bool multithreaded);
+        static void broadcast(char *event, bool multithreaded);
         static void broadcast(char *event, EventArgs data);
         static void broadcast(char* event);
 

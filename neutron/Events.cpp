@@ -3,6 +3,7 @@
 //
 
 #include "Events.h"
+#include "Window.h"
 #include <iostream>
 #include <thread>
 #include <utility>
@@ -44,7 +45,7 @@ namespace Neutron {
     void EventSystem::broadcastMultithreaded(Event* event, EventArgs data) {
         std::thread([event, data]() {
             event->run(data);
-        });
+        }).detach();
     }
     void EventSystem::broadcastThreaded(Event* event, EventArgs data) {
         event->run(data);
@@ -58,6 +59,10 @@ namespace Neutron {
             broadcastMultithreaded((it->second), data) :
             broadcastThreaded((it->second), data);
         }
+    }
+
+    void EventSystem::broadcast(char* event, bool multithreaded) {
+        EventSystem::broadcast(event, EventArgs(), multithreaded);
     }
 
     void EventSystem::broadcast(char* event) {
@@ -82,4 +87,5 @@ namespace Neutron {
             return nullptr;
         }
     }
+
 }

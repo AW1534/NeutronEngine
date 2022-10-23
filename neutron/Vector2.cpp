@@ -30,8 +30,9 @@ namespace Neutron {
         return 180 * this->getRadians() / M_PI;
     }
 
-    char const* Vector2::toChars() const {
-        return ("(" + std::to_string(Vector2::x) + ", " + std::to_string(Vector2::y) + ")").c_str();
+    Vector2::operator std::string() const {
+        std::string txt = "(X: " + std::to_string(this->x) + ", Y: " + std::to_string(this->y) + ")";
+        return txt;
     }
 
     void Vector2::Normalize(float targetMagnitude = 1) {
@@ -60,7 +61,7 @@ namespace Neutron {
     }
 
     Vector2 Vector2::operator-(int n) {
-        return Vector2(this->x + n, this->y + n);
+        return Vector2(this->x - n, this->y - n);
     }
 
     Vector2 Vector2::operator*(int n) {

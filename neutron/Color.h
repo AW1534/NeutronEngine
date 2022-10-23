@@ -6,6 +6,8 @@
 #define NEUTRONENGINE_COLOR_H
 
 
+#include <string>
+
 namespace Neutron {
     class Color {
     public:
@@ -16,7 +18,9 @@ namespace Neutron {
         float alpha = 255;
 
         Color(float red, float green, float blue, float alpha);
-        Color outOf(int num = 1);
+        [[nodiscard]] Color Normalise(int num = 1) const;
+
+        explicit operator std::string();
     };
 }
 
