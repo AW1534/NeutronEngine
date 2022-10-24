@@ -3,8 +3,6 @@
 //
 
 #include "Events.h"
-#include "Window.h"
-#include <iostream>
 #include <thread>
 #include <utility>
 
@@ -88,4 +86,8 @@ namespace Neutron {
         }
     }
 
+    template <typename T>
+    static T getArg(Neutron::EventArgs args, std::string name) {
+        return ((T)args[name]);
+    }
 }

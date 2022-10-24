@@ -48,7 +48,7 @@ namespace Neutron {
             Logger::Log((std::string)col);
 
             EventArgs eArgs = EventArgs();
-            eArgs["window"] = reinterpret_cast<std::any *>(this);
+            eArgs["window"] = this;
 
             EventSystem::broadcast("update", eArgs);
             /* Render here */

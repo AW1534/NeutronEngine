@@ -13,7 +13,7 @@
 #include "Window.h"
 
 namespace Neutron {
-    typedef std::map<std::string, std::any*> EventArgs;
+    typedef std::map<std::string, void*> EventArgs;
     typedef std::function<void(EventArgs)> Callback;
 
     class Event {
@@ -46,6 +46,9 @@ namespace Neutron {
         static Event* get(char* name);
         static Event* get(char* name, bool safe);
     };
+
+    template <typename T>
+    static T getArg(Neutron::EventArgs args, std::string name);
 }
 
 #endif //NEUTRONENGINE_EVENTS_H
