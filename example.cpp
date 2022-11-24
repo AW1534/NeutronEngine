@@ -10,10 +10,14 @@ using namespace Neutron;
 
 int main() {
     Logger::level = 0;
-    float speed = 100;
+    int speed = 10;
 
     EventSystem::get("windowInitializing")->on([](EventArgs args) {
        Window* win = (Window*) args["window"];
+
+       if (win->id == 0) {
+           Window(2);
+       }
 
        std::vector<Vector2> vertices = {
            Vector2(0.0, 0.0),
@@ -28,11 +32,13 @@ int main() {
        win->bg = Color(255, 0, 255, 255);
     });
 
-    EventSystem::get("inputPress")->on([](EventArgs args) {
+    EventSystem::get("inputPress")->on([speed](EventArgs args) {
         int* key = (int*) args["key"];
+        Window* win = (Window*) args["window"];
 
-        if (*key == KEY_SPACE) {
-            Logger::Log("jump u fucking cunt");
+        if (*key == KEY_SPACE && win->id == 0) {
+            Logger::Log("Jump");
+            win->gameObjects[0]->position.y += 1000 * win->deltaTime;
         }
 
         if (*key == KEY_ESCAPE) {
@@ -45,8 +51,6 @@ int main() {
 
     EventSystem::get("beforeRender")->on([](EventArgs args) {
         Window* win = (Window*) args["window"];
-
-        win->gameObjects[0]->position.y += 10 * win->deltaTime;
     });
 
     Window(0);

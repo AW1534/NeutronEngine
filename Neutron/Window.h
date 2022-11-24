@@ -11,6 +11,7 @@
 #include <list>
 #include "Events.h"
 #include "Objects/GameObject.h"
+#include "InputSystem.h"
 
 // TODO: create a better window management system with proper multithreading
 
@@ -20,21 +21,21 @@ namespace Neutron {
 
     GLFWwindow *CreateWindow(int, int, const char *, GLFWmonitor *, GLFWwindow *);
 
-    struct Size {
-        int x = 0;
-        int y = 0;
-    };
-
     class Window {
     public:
         std::vector<GameObject*> gameObjects = {};
+        std::vector<InputSystem*> inputSystems = {};
+
         double deltaTime;
         GLFWwindow *glfwWindow{};
         Color bg = Color(0, 0, 0, 255);
         int id;
         bool vulkanSupported;
 
-        Size size;
+        struct Size {
+            int x = 0;
+            int y = 0;
+        } size;
 
         Window();
         explicit Window(char *title);

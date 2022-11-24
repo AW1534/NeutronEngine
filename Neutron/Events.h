@@ -12,6 +12,9 @@
 #include <any>
 #include "Window.h"
 
+
+// TODO: Create "EventDevice" System (like the window system)
+
 namespace Neutron {
     typedef std::map<std::string, void*> EventArgs;
     typedef std::function<void(EventArgs)> Callback;

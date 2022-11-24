@@ -9,6 +9,8 @@
 #include "GLFW/glfw3.h"
 #include "../Drawable.h"
 
+// TODO: Make a mesh editor? (maybe with Python)
+
 namespace Neutron {
     class GameObject {
     public:
