@@ -10,8 +10,9 @@
 #include <iostream>
 #include <csignal>
 
+const std::string PROJECT_DIR = "/home/aw1lt/CLionProjects/NeutronEngine/NeutronExample/cpp/";
+
 namespace Neutron {
-    Shader* s = nullptr;
 
     void segFaultHandler(int sig) {
         Logger::Error("interrupted by signal " + std::to_string(sig) + " (SIGSEGV). If you can confirm it is not as a result of your code, please create an issue on GitHub to report this.", "NEUTRON");
@@ -30,6 +31,8 @@ namespace Neutron {
         if (!window) {
             glfwTerminate();
         }
+
+        glfwMakeContextCurrent(window);
 
         GLenum glewErr = glewInit();
 
@@ -80,8 +83,6 @@ namespace Neutron {
         this->glfwWindow = CreateWindow(width, height, title, fs ? glfwGetPrimaryMonitor() : nullptr, nullptr);
         this->vulkanSupported = glfwVulkanSupported();
 
-        //s = new Shader("pla.frag");
-
         windows.push_back(this);
 
         if (this->glfwWindow == nullptr) {
@@ -98,7 +99,7 @@ namespace Neutron {
         EventSystem::broadcast("beforeStartObjects", bargs, false);
         this->StartObjects();
         //Logger::Log(std::to_string(s.id));
-        //glUseProgram(s->id);
+
         while (!glfwWindowShouldClose(this->glfwWindow)) {
             std::make_unique<Input::InputSystem>(glfwWindow);
 
@@ -136,7 +137,6 @@ namespace Neutron {
             }
             glfwSetTime(0);
         }
-        //glDeleteProgram(s->id);
     }
 
 #pragma region Window constructor implementations

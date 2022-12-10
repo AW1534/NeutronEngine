@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <GL/glew.h>
+#include <vector>
 
 #include "Neutron/Shader.h"
 #include "Neutron/Logger.h"
@@ -50,6 +51,14 @@ namespace Neutron {
         int result;
         glGetShaderiv(id, GL_COMPILE_STATUS, &result);
         if (result == GL_FALSE) {
+            GLint log_length;
+            glGetShaderiv(id, GL_INFO_LOG_LENGTH, &log_length);
+            std::vector<char> v(log_length);
+            glGetShaderInfoLog(id, log_length, NULL, v.data());
+            std::string s(begin(v), end(v));
+
+            Logger::Warn(s, "NEUTRON");
+
             int length;
             glGetShaderiv(id, GL_INFO_LOG_LENGTH, &result);
             char* message = (char*)alloca(length * sizeof(char));
@@ -62,9 +71,7 @@ namespace Neutron {
         return id;
     }
 
-    static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
-    {
-        Logger::Log("ok");
+    static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader) {
         // create a shader program
         unsigned int program = glCreateProgram();
         Logger::Log(std::to_string(program));
@@ -111,6 +118,30 @@ namespace Neutron {
     Shader::Shader(std::string path) {
         Shader s = ParseShader(path);
         Constructor(s.VertexSource, s.FragmentSource);
+    }
+
+    void Shader::setBool(const std::string &name, bool value) const {
+        glUniform1i(glGetUniformLocation(this->id, name.c_str()), (int)value);
+    }
+
+    void Shader::setInt(const std::string &name, int value) const {
+        glUniform1i(glGetUniformLocation(this->id, name.c_str()), value);
+    }
+
+    void Shader::setFloat(const std::string &name, float value) const {
+        glUniform1i(glGetUniformLocation(this->id, name.c_str()), value);
+    }
+
+    void Shader::Enable() {
+        glUseProgram(this->id);
+    }
+
+    void Shader::Disable() {
+        glUseProgram(0);
+    }
+
+    Shader::~Shader() {
+        glDeleteProgram(this->id);
     }
 
 }

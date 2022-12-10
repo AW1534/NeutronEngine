@@ -87,7 +87,7 @@ namespace Neutron {
     }
 
     void EventSystem::deconst() {
-        for (const auto& it : Neutron::EventSystem::events) {
+        for (const auto it : Neutron::EventSystem::events) {
             delete it.second;
         }
     }

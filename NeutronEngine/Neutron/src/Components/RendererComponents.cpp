@@ -20,6 +20,8 @@ namespace Neutron {
     }
 
     void MeshRendererComponent::Draw(bool vulkan) {
+        if (this->shader != nullptr) this->shader->Enable();
+
         int triangles = this->indexBuffer.size()/3;
         int tcount = 0;
 
@@ -39,6 +41,8 @@ namespace Neutron {
                 Logger::Warn("There was an exception while rendering triangle #" + std::to_string(tcount) + " in a mesh");
             }
         }
+
+        if (this->shader != nullptr) this->shader->Disable();
     }
 
     MeshRendererComponent* MeshRendererComponent::setShape(std::vector<Math::Vector2> vertices, std::vector<int> indexBuffer) {

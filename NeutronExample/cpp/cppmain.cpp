@@ -14,13 +14,15 @@ using namespace Neutron;
 using namespace Neutron::Utils;
 
 int main(int argc, char *argv[]) {
+    Shader* shader;
+
     Logger::Log("Neutron is now a lib. I would like to kindly invite you to suck it.");
 
     EventSystem::get("windowInitializing")->on([](EventArgs args) {
 
     });
 
-    EventSystem::get("beforeStartObjects")->on([](EventArgs args) {
+    EventSystem::get("beforeStartObjects")->on([&](EventArgs args) {
         //Window* win = EventSystem::getArg<Window*>(args, "window");
         Window* win = (Window*) args["window"];
 
@@ -38,10 +40,22 @@ int main(int argc, char *argv[]) {
         player->AddComponent<Controller>();
         player->AddComponent<MeshRendererComponent>()->setShape(vertices);
         win->AddGameObject(player);
-        Logger::Assert(false, "ok");
+
+        shader = new Shader("/home/aw1lt/CLionProjects/NeutronEngine/NeutronExample/cpp/player.shader");
+
+        Logger::Warn("hi", "NEUTRON");
+        player->GetComponent<MeshRendererComponent>()->shader =shader;
+
+        GameObject* r = new GameObject();
+        r->AddComponent<Controller>();
+        r->AddComponent<MeshRendererComponent>()->setShape(vertices);
+        win->AddGameObject(r);
+
+        r->transform->position = Math::Vector2(0.1, 0.1);
     });
 
     Window();
+    delete shader;
 
     return 0;
 }

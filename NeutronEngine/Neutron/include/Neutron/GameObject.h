@@ -50,8 +50,9 @@ namespace Neutron {
             }
         }
 
-        template <typename T>
-        T* AddComponent() {
+
+        template <typename T, typename ...Args>
+        T* AddComponent(Args&&... args) {
             std::shared_ptr<T> comp = std::make_shared<T>();
             this->components.push_back(comp);
             return &(*comp);
@@ -60,9 +61,8 @@ namespace Neutron {
         template <typename T>
         T* GetComponent() {
             for (std::shared_ptr<BaseComponent> comp : this->components) {
-                BaseComponent c = *comp;
-                if (T* res = dynamic_cast<T*>(comp)) {
-                    return res;
+                if (T* res = dynamic_cast<T*>(&(*comp))) {
+                    return &(*res);
                 }
             }
 

@@ -15,12 +15,21 @@ namespace Neutron {
 
         std::string VertexSource;
         std::string FragmentSource;
-        int id;
+        unsigned int id;
 
         Shader(std::string vs, std::string fs);
+        ~Shader();
 
         static Shader ParseShader(const std::string& filepath);
         static unsigned int CompileShader(unsigned int type, const std::string& source);
+
+        // utility uniform functions
+        void setBool(const std::string &name, bool value) const;
+        void setInt(const std::string &name, int value) const;
+        void setFloat(const std::string &name, float value) const;
+
+        void Enable();
+        void Disable();
 
         void Constructor(std::string vs, std::string fs);
     };

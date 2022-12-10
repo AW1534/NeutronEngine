@@ -2,6 +2,7 @@
 // Created by aw1lt on 09/12/22.
 //
 
+#include <iostream>
 #include <Neutron/Logger.h>
 
 
@@ -31,7 +32,10 @@ int main(int argc, char* argv[]) {
     Neutron::Logger::Info("Another useful function is LogAt");
     Neutron::Logger::LogAt(1, "It's pretty simple, you pass the logging level, a string and a namespace optionally. Try changing the Logging level number");
 
-    Neutron::Logger::Error("Finally, This is an error message. It will halt the process. Goodbye <3 (lvl 5)");
+    //Neutron::Logger::Error("Finally, This is an error message. It will halt the process. Goodbye <3 (lvl 5)");
+
+    std::cout << "\n" << "Obama (Press return to continue) . . .";
+    getchar();
 
     return 0;
 }

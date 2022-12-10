@@ -40,6 +40,8 @@ namespace Neutron {
 
         static bool Assert(bool condition, std::basic_string<char> error = "Assertion failed", int level = 4, std::string name = "");
         static void LogAt(int level, std::basic_string<char> message, std::string name = "", int stack_mod = 0);
+
+        friend std::ostream& operator <<(std::ostream& s, const std::string& p);
     };
 
 }
