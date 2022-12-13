@@ -1,8 +1,10 @@
 //
 // Created by aw1lt on 24/11/22.
 //
-#include "Neutron/Logger.h"
+#include <Logger/Logger.h>
 #include "Neutron/Events.h"
+#include "Neutron/InputSystem.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Neutron::Input {
@@ -47,25 +49,45 @@ namespace Neutron::Input {
         glfwSetKeyCallback(win, key_callback);
     }
 
-    Math::Vector2 InputAxis::raw() {
-        return Math::Vector2(float(this->x.raw()), float(this->y.raw()));
+    Math::Vector2 InputAxis2D::raw() const {
+        return {float(this->x.raw()), float(this->y.raw())};
     }
 
-    Math::Vector2 InputAxis::linear() {
-        return Math::Vector2(float(this->x.linear()), float(this->y.linear()));;
+    Math::Vector2 InputAxis2D::linear() {
+        return {float(this->x.linear()), float(this->y.linear())};
     }
 
-    Math::Vector2 InputAxis::smooth() {
-        return Math::Vector2(float(this->x.smooth()), float(this->y.smooth()));;
+    Math::Vector2 InputAxis2D::smooth() const {
+        return {float(this->x.smooth()), float(this->y.smooth())};;
     }
 
-    void InputAxis::SetSpeed(double speed) {
+    void InputAxis2D::SetSpeed(double speed) {
         this->x.speed = speed;
         this->y.speed = speed;
     }
 
-    void InputAxis::SetSmoothness(double smoothness) {
+    void InputAxis2D::SetSmoothness(double smoothness) {
         this->x.smoothness = smoothness;
         this->y.smoothness = smoothness;
+    }
+
+    void InputAxis1D::SetSpeed(double speed) {
+        this->axis.speed = speed;
+    }
+
+    void InputAxis1D::SetSmoothness(double smoothness) {
+        this->axis.smoothness = smoothness;
+    }
+
+    double InputAxis1D::raw() const {
+        return this->axis.raw();
+    }
+
+    double InputAxis1D::linear() {
+        return this->axis.linear();
+    }
+
+    double InputAxis1D::smooth() const {
+        return this->axis.smooth();
     }
 } // Neutron::Input

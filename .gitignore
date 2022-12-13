@@ -1,4 +1,4 @@
-# Project exclude paths
-*/cmake-build-debug/
-*/cmake-build-debug-coverage/
-*/.idea/
+# all cmake build folders
+cmake-build-debug
+cmake-build-release
+cmake-build-debug-coverage

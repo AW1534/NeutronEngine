@@ -11,13 +11,27 @@
 namespace Neutron {
     class Shader {
     public:
-        Shader(std::string path);
+        struct ShaderType {
+            inline static int NONE = -1; inline static int VERTEX = 0; inline static int FRAGMENT = 1;
+        };
 
         std::string VertexSource;
         std::string FragmentSource;
         unsigned int id;
 
+        inline static std::string default_vert = "#version 330 core\n"
+                                                 "layout(location = 0) in vec4 position;\n"
+                                                 "void main()  {\n"
+                                                 "    gl_Position = position;\n"
+                                                 "}";
+        inline static std::string default_frag = "#version 330 core\n"
+                                                 "layout(location = 0) out vec4 color;\n"
+                                                 "void main()  {\n"
+                                                 "    color = vec4(1, 1, 1, 1);\n"
+                                                 "}";
+
         Shader(std::string vs, std::string fs);
+        Shader(std::string path);
         ~Shader();
 
         static Shader ParseShader(const std::string& filepath);

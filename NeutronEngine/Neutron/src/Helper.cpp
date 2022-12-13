@@ -2,7 +2,7 @@
 // Created by aw1lt on 03/12/22.
 //
 #include "Neutron/Helper.h"
-#include "Neutron/Logger.h"
+#include <Logger/Logger.h>
 
 namespace Neutron {
     std::vector<int> range(unsigned int start, unsigned int end, int step) {

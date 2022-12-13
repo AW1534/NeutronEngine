@@ -1,0 +1,7 @@
+/home/aw1lt/CLionProjects/NeutronEngine/cmake-build-debug-coverage/CMakeFiles/NeutronLogger.dir
+/home/aw1lt/CLionProjects/NeutronEngine/cmake-build-debug-coverage/CMakeFiles/NeutronEditor.dir
+/home/aw1lt/CLionProjects/NeutronEngine/cmake-build-debug-coverage/CMakeFiles/NeutronEngine.dir
+/home/aw1lt/CLionProjects/NeutronEngine/cmake-build-debug-coverage/CMakeFiles/NeutronExampleC++.dir
+/home/aw1lt/CLionProjects/NeutronEngine/cmake-build-debug-coverage/CMakeFiles/NeutronExampleLogging.dir
+/home/aw1lt/CLionProjects/NeutronEngine/cmake-build-debug-coverage/CMakeFiles/edit_cache.dir
+/home/aw1lt/CLionProjects/NeutronEngine/cmake-build-debug-coverage/CMakeFiles/rebuild_cache.dir

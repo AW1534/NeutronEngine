@@ -7,19 +7,9 @@
 #include "Neutron/Window.h"
 #include "Neutron/Shader.h"
 
-#include <iostream>
-#include <csignal>
-
-const std::string PROJECT_DIR = "/home/aw1lt/CLionProjects/NeutronEngine/NeutronExample/cpp/";
-
 namespace Neutron {
 
-    void segFaultHandler(int sig) {
-        Logger::Error("interrupted by signal " + std::to_string(sig) + " (SIGSEGV). If you can confirm it is not as a result of your code, please create an issue on GitHub to report this.", "NEUTRON");
-    }
-
     GLFWwindow *CreateWindow(int width, int height, const char *title, GLFWmonitor *monitor, GLFWwindow *share) {
-        signal(SIGSEGV, segFaultHandler);
         GLFWwindow *window;
 
         if (!glfwInit()) {
@@ -82,6 +72,8 @@ namespace Neutron {
         // Create Window
         this->glfwWindow = CreateWindow(width, height, title, fs ? glfwGetPrimaryMonitor() : nullptr, nullptr);
         this->vulkanSupported = glfwVulkanSupported();
+
+        this->inputSystem = std::make_shared<Input::InputSystem>(this->glfwWindow);
 
         windows.push_back(this);
 

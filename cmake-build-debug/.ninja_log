@@ -1,0 +1,26 @@
+# ninja log v5
+1917	5682	1670938992279388192	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Components/BaseComponent.cpp.o	64d23ba0838fa2aa
+8	2355	1670893035370137713	CMakeFiles/NeutronLogger.dir/NeutronLogger/src/Helper.cpp.o	3fe413562cdfa1f2
+717	823	1670765037838892394	NeutronEditor	31046b69bb56f0c1
+7277	7612	1670938994211288365	NeutronExampleC++	6360a9d4aef54c62
+7	3876	1670938990467481801	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Events.cpp.o	20f283965108eaca
+3502	3540	1670939813805241198	libNeutronLogger.a	557a2d0d1da19dfc
+3908	7277	1670938993879305522	CMakeFiles/NeutronExampleC++.dir/NeutronExample/cpp/cppmain.cpp.o	900bbaf79047e669
+10	2735	1670788093911022262	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Color.cpp.o	c44c6c3a1623ea
+1	498	1670939005914683230	CMakeFiles/NeutronExampleLogging.dir/NeutronExample/Logging/logmain.cpp.o	5ccf7bd9dad94562
+0	59	1670939925088138378	build.ninja	acb68ae30232c43c
+2	859	1670886406529952805	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Math/Axis.cpp.o	803af02b9fccbec4
+5	3453	1670788086066799911	CMakeFiles/NeutronLogger.dir/NeutronLogger/src/Files.cpp.o	4b7866d56b6b7a3a
+0	3272	1670728539653770105	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Logger.cpp.o	f79c6c6fc4e5d595
+4	3033	1670938989631524983	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Components/RendererComponents.cpp.o	2e310e336e0a517a
+3540	3707	1670939813969239933	NeutronExampleLogging	259f6607c2e478eb
+3	1026	1670788186861595999	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Utils/Files.cpp.o	53ded42c8516e25a
+1	717	1670765037730892153	CMakeFiles/NeutronEditor.dir/NeutronEditor/main.cpp.o	88be71f10e63842a
+6347	6444	1670938993039348926	libNeutronEngine.a	991f50500e1d9d8b
+3033	5167	1670938991767414644	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Components/Transform.cpp.o	d50f00896bc23d61
+18	3905	1670938990503479941	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/InputSystem.cpp.o	bda3f9165a95e51c
+7	1917	1670938988515582623	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Math/Vector2.cpp.o	2c187c3c65d05939
+4579	6347	1670938992947353679	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Shader.cpp.o	bdf896ebfae4eaf1
+3	3501	1670939813761241538	CMakeFiles/NeutronLogger.dir/NeutronLogger/src/Logger.cpp.o	798245a4a509e6c
+18	4579	1670938991167445641	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Window.cpp.o	8bb6dae7ac58cd6d
+3876	5555	1670938992155394599	CMakeFiles/NeutronEngine.dir/NeutronEngine/Neutron/src/Helper.cpp.o	973ab798c71c53be

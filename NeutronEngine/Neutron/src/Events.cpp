@@ -5,7 +5,7 @@
 #include "Neutron/Events.h"
 #include <thread>
 #include <utility>
-#include "Neutron/Logger.h"
+#include <Logger/Logger.h>
 #include <string>
 
 namespace Neutron {

@@ -1,0 +1,96 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Release-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.23"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "NeutronExampleLogging",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "NeutronEditor::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NeutronEditor-Release-a2c78eff27b4f3a35b43.json",
+					"name" : "NeutronEditor",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NeutronEngine::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NeutronEngine-Release-fc0e8e85b1737edaf7a7.json",
+					"name" : "NeutronEngine",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NeutronExampleC++::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NeutronExampleC++-Release-6d17304c28b8f16a56c8.json",
+					"name" : "NeutronExampleC++",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NeutronExampleLogging::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NeutronExampleLogging-Release-2ba5a0fd2d4f910f1093.json",
+					"name" : "NeutronExampleLogging",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NeutronLogger::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NeutronLogger-Release-8d256ac570b22522b896.json",
+					"name" : "NeutronLogger",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/aw1lt/CLionProjects/NeutronEngine/cmake-build-release",
+		"source" : "/home/aw1lt/CLionProjects/NeutronEngine"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

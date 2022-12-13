@@ -5,7 +5,6 @@
 #include <fstream>
 #include <utility>
 #include "../../include/Neutron/Utils/Files.h"
-#include "Neutron/Logger.h"
 
 namespace Neutron::Utils::Files {
     std::vector<std::string> readLines_gi(std::string file, std::vector<int> &index_of, int min, int max) {

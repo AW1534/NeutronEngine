@@ -4,12 +4,13 @@
 
 #ifndef NEUTRONENGINE_WINDOW_H
 #define NEUTRONENGINE_WINDOW_H
-#include "Neutron/Math/Vector2.h"
-#include "Color.h"
-#include <GLFW/glfw3.h>
-#include <thread>
 #include <list>
 #include <memory>
+#include <GLFW/glfw3.h>
+#include <thread>
+
+#include "Neutron/Math/Vector2.h"
+#include "Color.h"
 #include "Events.h"
 #include "InputSystem.h"
 #include "GameObject.h"
@@ -27,7 +28,7 @@ namespace Neutron {
     class EXPORT Window {
     public:
         std::vector<GameObject*> gameObjects = {};
-        std::vector<std::shared_ptr<Input::InputSystem>> inputSystems = {};
+        std::shared_ptr<Input::InputSystem> inputSystem = nullptr;
 
         double deltaTime;
         GLFWwindow *glfwWindow{};

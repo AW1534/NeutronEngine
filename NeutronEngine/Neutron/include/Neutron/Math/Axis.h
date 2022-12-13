@@ -11,7 +11,11 @@ namespace Neutron::Math {
 
     class EXPORT Axis {
     public:
-        double pl_val = 0;
+        double smoothSnapThreshold = 0.01;
+        double deadzone = 0;
+
+        double ps_val = 0; // previous smooth value
+        double pl_val = 0; // previous linear value
         double val = 0;
 
         double speed = 0;
@@ -22,6 +26,9 @@ namespace Neutron::Math {
         [[nodiscard]] double raw() const;
         double linear();
         [[nodiscard]] double smooth() const;
+        void UpdateSmooth();
+
+        void Update(int pos, int neg);
     };
 
 } // Neutron

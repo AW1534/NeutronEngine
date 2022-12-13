@@ -5,7 +5,7 @@
 #ifndef NEUTRONENGINE_MATRIX_H
 #define NEUTRONENGINE_MATRIX_H
 
-#include "Neutron/Logger.h"
+#include <Logger/Logger.h>
 #include "Neutron/Helper.h"
 
 #include "Neutron/macros/dll.h"

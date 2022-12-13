@@ -2,7 +2,7 @@
 // Created by aw1lt on 06/12/22.
 //
 
-#include <Neutron/Logger.h>
+#include <Logger/Logger.h>
 #include <Neutron/Components/RendererComponents.h>
 #include <Neutron/Window.h>
 
@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
 
     EventSystem::get("beforeStartObjects")->on([&](EventArgs args) {
         //Window* win = EventSystem::getArg<Window*>(args, "window");
+
         Window* win = (Window*) args["window"];
 
         std::vector<Math::Vector2> vertices = {
@@ -41,7 +42,7 @@ int main(int argc, char *argv[]) {
         player->AddComponent<MeshRendererComponent>()->setShape(vertices);
         win->AddGameObject(player);
 
-        shader = new Shader("/home/aw1lt/CLionProjects/NeutronEngine/NeutronExample/cpp/player.shader");
+        shader = new Shader("/home/aw1lt/CLionProjects/NeutronEngine/NeutronExample/cpp/player.frag");
 
         Logger::Warn("hi", "NEUTRON");
         player->GetComponent<MeshRendererComponent>()->shader =shader;
@@ -55,7 +56,7 @@ int main(int argc, char *argv[]) {
     });
 
     Window();
-    delete shader;
+    free(shader);
 
     return 0;
 }

@@ -8,23 +8,20 @@
 #include <vector>
 
 #include "Neutron/Shader.h"
-#include "Neutron/Logger.h"
+#include <Logger/Logger.h>
 
 namespace Neutron {
     Shader Shader::ParseShader(const std::string &filepath) {
         std::ifstream stream(filepath);
 
-        enum class ShaderType {
-            NONE = -1, VERTEX = 0, FRAGMENT = 1
-        };
-
         std::string line;
-        std::stringstream ss[2];
-        ShaderType type = ShaderType::NONE;
+        std::stringstream ss[2] = {};
+        int type = ShaderType::NONE;
         if (filepath.ends_with(".vert"))
             type = ShaderType::VERTEX;
         else if (filepath.ends_with(".frag"))
             type = ShaderType::FRAGMENT;
+
 
         while (getline(stream, line)) {
             if (line.find("#shader") != std::string::npos) {
@@ -32,13 +29,20 @@ namespace Neutron {
                     type = ShaderType::VERTEX;
                 else if (line.find("fragment") != std::string::npos)
                     type = ShaderType::FRAGMENT;
-            } else {
-                Logger::Assert((int)type != -1, "Shader type could not be determined", 3, "NEUTRON");
-                ss[(int)type] << line << "\n";
+            }
+            else {
+                if (type != ShaderType::NONE) {
+                    ss[(int)type] << line << '\n';
+                } else if(line != "") {
+                    Logger::Log("Shader code, But no Type has been detected yet. Visit (URL) to learn more.");
+                }
             }
         }
 
-        return Shader(ss[0].str(), ss[1].str());
+        std::string vert = ss[ShaderType::VERTEX].rdbuf()->in_avail() != 0 ? ss[ShaderType::VERTEX].str() : Shader::default_vert;
+        std::string frag = ss[ShaderType::FRAGMENT].rdbuf()->in_avail() != 0 ? ss[ShaderType::FRAGMENT].str() : Shader::default_frag;
+
+        return {vert, frag};
     }
 
     unsigned int Shader::CompileShader(unsigned int type, const std::string &source) {
@@ -75,8 +79,18 @@ namespace Neutron {
         // create a shader program
         unsigned int program = glCreateProgram();
         Logger::Log(std::to_string(program));
-        unsigned int vs = Shader::CompileShader(GL_VERTEX_SHADER, vertexShader);
-        unsigned int fs = Shader::CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
+
+        unsigned int vs = 0;
+        unsigned int fs = 0;
+
+        if (vertexShader != "") {
+            vs = Shader::CompileShader(GL_VERTEX_SHADER, vertexShader);
+        }
+
+        if (fragmentShader != "") {
+            fs = Shader::CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
+        }
+
 
 
         glAttachShader(program, vs);
@@ -87,7 +101,7 @@ namespace Neutron {
         GLint program_linked;
 
         glGetProgramiv(program, GL_LINK_STATUS, &program_linked);
-        std::cout << "Program link status: " << program_linked << std::endl;
+        Logger::Log("Program link status" + std::to_string((bool)program_linked), "NEUTRON");
         if (program_linked != GL_TRUE)
         {
             GLsizei log_length = 0;

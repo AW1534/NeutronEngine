@@ -2,8 +2,8 @@
 // Created by aw1lt on 08/12/22.
 //
 
-#ifndef NEUTRONEXAMPLEC_FILES_H
-#define NEUTRONEXAMPLEC_FILES_H
+#ifndef NEUTRONENGINE_FILES_H
+#define NEUTRONENGINE_FILES_H
 
 #include <string>
 #include <vector>
@@ -15,4 +15,4 @@ namespace Neutron::Utils::Files {
     std::string read(std::string file);
 }
 
-#endif //NEUTRONEXAMPLEC_FILES_H
+#endif //NEUTRONENGINE_FILES_H

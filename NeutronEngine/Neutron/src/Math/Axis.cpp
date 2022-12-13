@@ -7,7 +7,7 @@
 
 namespace Neutron::Math {
     Axis::Axis(double *pos, double *neg) {
-
+        this->val = pos - neg;
     }
 
     double Axis::raw() const {
@@ -26,6 +26,31 @@ namespace Neutron::Math {
     }
 
     double Axis::smooth() const {
-        return pl_val - pl_val * (1 - abs(int(pl_val))) * (1 - smoothness);
+        return ps_val;
+    }
+
+    void Axis::Update(int pos, int neg) {
+        this->val = pos - neg;
+
+        this->UpdateSmooth();
+    }
+
+    void Axis::UpdateSmooth() {
+
+        double raw = this->raw();
+
+        if(ps_val == raw) return;
+
+        if(ps_val < raw)
+            ps_val += abs(ps_val - raw) / smoothness;
+        else if(ps_val > raw)
+            ps_val -= abs(ps_val - raw) / smoothness;
+
+        if(ps_val > 1)
+            ps_val = 1;
+        else if(ps_val < -1)
+            ps_val = -1;
+        else if(abs(raw - ps_val) <= this->smoothSnapThreshold)
+            ps_val = raw;
     }
 } // Neutron

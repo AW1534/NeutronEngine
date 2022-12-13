@@ -5,6 +5,7 @@
 #ifndef NEUTRONENGINE_INPUTSYSTEM_H
 #define NEUTRONENGINE_INPUTSYSTEM_H
 
+#include <memory>
 #include <map>
 #include <GLFW/glfw3.h>
 
@@ -26,27 +27,60 @@ namespace Neutron::Input {
     };
 
     class EXPORT InputValue {
-
+        virtual void Input() {};
+        virtual void Update() {};
     };
 
-    class EXPORT InputAxis : public InputValue {
+    class EXPORT InputAxis1D : public InputValue {
     public:
-        Math::Axis x;
-        Math::Axis y;
+        Math::Axis axis = Math::Axis(0, 0);
+
+        int positiveKey;
+        int negativeKey;
+
+        InputAxis1D(GLFWwindow* win, int pos, int neg) : positiveKey(pos), negativeKey(neg) {};
 
         void SetSpeed(double speed);
         void SetSmoothness(double smoothness);
 
-        Math::Vector2 raw();
+        double raw() const;
+        double linear();
+        double smooth() const;
+    };
+
+    class EXPORT InputAxis2D : public InputValue {
+    public:
+        // constructor that takes a Window pointer and four GLFW key codes
+        Math::Axis x = Math::Axis(0, 0);
+        Math::Axis y = Math::Axis(0, 0);
+
+        int posxKey;
+        int negxKey;
+        int posyKey;
+        int negyKey;
+
+
+        InputAxis2D(GLFWwindow *win, int x_pos, int x_neg, int y_pos, int y_neg) : posxKey(x_pos), negxKey(x_neg), posyKey(y_pos), negyKey(y_neg) {}
+
+        void SetSpeed(double speed);
+        void SetSmoothness(double smoothness);
+
+        Math::Vector2 raw() const;
         Math::Vector2 linear();
-        Math::Vector2 smooth();
+        Math::Vector2 smooth() const;
     };
 
     class EXPORT InputSystem {
     public:
-        std::map<char, InputValue> inputValues = {};
+        std::map<char*, std::shared_ptr<InputValue>> inputValues = {};
 
-        InputSystem(GLFWwindow* win);
+        template <typename T>
+        T GetValue(char* key) {
+            return dynamic_cast<T>(inputValues[key]);
+        }
+
+        explicit InputSystem(GLFWwindow* win);
+
     };
 
 } // Neutron
