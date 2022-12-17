@@ -60,7 +60,9 @@ namespace Neutron::Input {
         int negyKey;
 
 
-        InputAxis2D(GLFWwindow *win, int x_pos, int x_neg, int y_pos, int y_neg) : posxKey(x_pos), negxKey(x_neg), posyKey(y_pos), negyKey(y_neg) {}
+        InputAxis2D(GLFWwindow *win, int x_pos, int x_neg, int y_pos, int y_neg) : posxKey(x_pos), negxKey(x_neg), posyKey(y_pos), negyKey(y_neg) {
+            Logger::Log("menu mardi pudd");
+        }
 
         void SetSpeed(double speed);
         void SetSmoothness(double smoothness);
@@ -72,11 +74,11 @@ namespace Neutron::Input {
 
     class EXPORT InputSystem {
     public:
-        std::map<char*, std::shared_ptr<InputValue>> inputValues = {};
+        std::map<std::string, std::shared_ptr<InputValue*>> inputValues;
 
         template <typename T>
-        T GetValue(char* key) {
-            return dynamic_cast<T>(inputValues[key]);
+        T GetValue(std::string key) {
+            return dynamic_cast<T>(*inputValues[key]);
         }
 
         explicit InputSystem(GLFWwindow* win);

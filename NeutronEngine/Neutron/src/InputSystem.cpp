@@ -46,6 +46,7 @@ namespace Neutron::Input {
     }
 
     InputSystem::InputSystem(GLFWwindow *win) {
+        Logger::Log("test");
         glfwSetKeyCallback(win, key_callback);
     }
 

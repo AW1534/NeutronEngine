@@ -16,7 +16,7 @@ using namespace Neutron;
 
 class Controller : public BaseComponent {
 public:
-    Window* win;
+    Window* window;
     GameObject* go;
     unsigned int health;
 
@@ -25,21 +25,29 @@ public:
     }
 
     void Start() {
+
         Logger::Log("Awake");
 
-        win = (Window*) this->win;
+        this->window = (Window*)this->win;
+        Logger::Log("among us");
 
-        win->inputSystem->inputValues["move"] = std::make_shared<Input::InputAxis2D>(win->glfwWindow, KEY_W, KEY_S, KEY_D, KEY_A);
+        std::shared_ptr<Input::InputSystem> is = this->window->inputSystem;
 
-        go = static_cast<GameObject *>(this->gameObject);
+        Logger::Log("among us");
+
+        //auto ivs = (*is).GetValue<Input::InputAxis2D*>("move");
+
+        Logger::Log("among us");
+
         Logger::Log("New player created!");
+
     }
 
     void Update() {
         //Logger::Log("b");
     }
 
-    void InputPress(InputArgs args) override {
+    void InputPress(InputArgs args) {
         Logger::Log("bkjnjnkjnkjn");
     }
 };

@@ -28,7 +28,7 @@ namespace Neutron {
     class EXPORT Window {
     public:
         std::vector<GameObject*> gameObjects = {};
-        std::shared_ptr<Input::InputSystem> inputSystem = nullptr;
+        std::shared_ptr<Input::InputSystem> inputSystem;
 
         double deltaTime;
         GLFWwindow *glfwWindow{};
