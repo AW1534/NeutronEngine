@@ -1,4 +1,0 @@
-/home/aw1lt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/home/aw1lt/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/ninja/linux/ninja -G Ninja -S /home/aw1lt/CLionProjects/NeutronEngine -B /home/aw1lt/CLionProjects/NeutronEngine/cmake-build-release
--- Configuring done
--- Generating done
--- Build files have been written to: /home/aw1lt/CLionProjects/NeutronEngine/cmake-build-release
