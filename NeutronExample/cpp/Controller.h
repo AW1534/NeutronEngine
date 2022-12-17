@@ -35,7 +35,9 @@ public:
 
         Logger::Log("among us");
 
-        //auto ivs = (*is).GetValue<Input::InputAxis2D*>("move");
+        Logger::Assert(is != nullptr, "Input system is null", 5);
+
+        auto iv = (*is).GetValue<Input::InputAxis2D*>("move");
 
         Logger::Log("among us");
 
