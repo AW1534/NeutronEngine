@@ -32,10 +32,22 @@ set(CMAKE_PREFIX_PATH "/mnt/secondary/Qt/6.4.1/gcc_64")
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 qt_standard_project_setup()
 
+#qt_add_resources(RC_SRC "NeutronEditor/resources/qml.qrc")
+
+set(OLD_AUTORCC ${CMAKE_AUTORCC})
+set(CMAKE_AUTORCC ON)
+
+qt_add_resources(NeutronEditor "app_images"
+        PREFIX "/NeutronEditor"
+        FILES /resources/branding/icon.png
+        )
+
 add_executable (NeutronEditor ${NEUTRON_LIB_INCLUDE_FILES} ${NEUTRON_LIB_SOURCE_FILES} NeutronEditor/src/MainWindow.cpp NeutronEditor/src/MainWindow.h NeutronEditor/src/main.cpp)
+#qt_add_executable(NeutronEditor ${NEUTRON_LIB_INCLUDE_FILES} ${NEUTRON_LIB_SOURCE_FILES} NeutronEditor/src/MainWindow.cpp NeutronEditor/src/MainWindow.h NeutronEditor/src/main.cpp NeutronEditor/resources/qml.qrc)
+
 target_link_libraries (NeutronEditor NeutronLogger boost_stacktrace_backtrace Qt6::Widgets)
 
-qt_add_resources(RC_SRC "resources/qml.qrc")
+set(CMAKE_AUTORCC ${OLD_AUTORCC})
 
 add_library(myGame SHARED ${ALL_SOURCES} ${RC_SRC})
 

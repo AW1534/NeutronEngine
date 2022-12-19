@@ -14,6 +14,12 @@ class QMenu;
 class QTextEdit;
 QT_END_NAMESPACE
 
+enum State {
+    STATE_STOPPED,
+    STATE_PLAYING,
+    STATE_PAUSED
+};
+
 //! [0]
 class MainWindow : public QMainWindow
 {
@@ -21,6 +27,7 @@ Q_OBJECT
 
 public:
     MainWindow();
+    State state;
 
 private slots:
     void newLetter();

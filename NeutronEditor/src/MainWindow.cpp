@@ -205,16 +205,6 @@ void MainWindow::createActions()
     fileMenu->addAction(saveAct);
     fileToolBar->addAction(saveAct);
 
-    const QIcon printIcon = QIcon::fromTheme("document-print", QIcon(":/images/print.png"));
-    QAction *printAct = new QAction(printIcon, tr("&Print..."), this);
-    printAct->setShortcuts(QKeySequence::Print);
-    printAct->setStatusTip(tr("Print the current form letter"));
-    connect(printAct, &QAction::triggered, this, &MainWindow::print);
-    fileMenu->addAction(printAct);
-    fileToolBar->addAction(printAct);
-
-    fileMenu->addSeparator();
-
     QAction *quitAct = fileMenu->addAction(tr("&Quit"), this, &QWidget::close);
     quitAct->setShortcuts(QKeySequence::Quit);
     quitAct->setStatusTip(tr("Quit the application"));
@@ -233,7 +223,33 @@ void MainWindow::createActions()
 
     menuBar()->addSeparator();
 
+    QMenu *gameMenu = menuBar()->addMenu(tr("&Game"));
+    QToolBar *gameToolBar = addToolBar(tr("Game"));
+    const QIcon runIcon = QIcon::fromTheme("media-play", QIcon(":/images/play.png"));
+    QAction *runAct = new QAction(runIcon, tr("&Run"), this);
+//    runAct->setShortcuts(QKeySequence::);
+    runAct->setStatusTip(tr("Run the game"));
+    gameMenu->addAction(runAct);
+    gameToolBar->addAction(runAct);
+
+    const QIcon pauseIcon = QIcon::fromTheme("media-pause", QIcon(":/images/pause.png"));
+    QAction *pauseAct = new QAction(pauseIcon, tr("&Pause"), this);
+    //pauseAct->setShortcuts(QKeySequence::Undo);
+    pauseAct->setStatusTip(tr("Pause the game"));
+    gameMenu->addAction(pauseAct);
+    gameToolBar->addAction(pauseAct);
+
+    const QIcon stopIcon = QIcon::fromTheme("media-stop", QIcon(":/images/stop.png"));
+    QAction *stopAct = new QAction(stopIcon, tr("&Stop"), this);
+    //stopAct->setShortcuts(QKeySequence::Undo);
+    stopAct->setStatusTip(tr("Stop the game"));
+    gameMenu->addAction(stopAct);
+    gameToolBar->addAction(stopAct);
+
+    fileMenu->addSeparator();
+
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
+
 
     QAction *aboutAct = helpMenu->addAction(tr("&About"), this, &MainWindow::about);
     aboutAct->setStatusTip(tr("Show the application's About box"));
