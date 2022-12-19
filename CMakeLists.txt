@@ -28,15 +28,16 @@ project(NeutronEditor DESCRIPTION "The official editor for NeutronEngine")
 file(GLOB_RECURSE NEUTRON_LIB_INCLUDE_FILES "./NeutronEditor/*.h")
 file(GLOB_RECURSE NEUTRON_LIB_SOURCE_FILES "./NeutronEditor/*.cpp")
 
-find_package (PkgConfig REQUIRED)
-pkg_check_modules (GTK REQUIRED gtk4)
+set(CMAKE_PREFIX_PATH "/mnt/secondary/Qt/6.4.1/gcc_64")
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+qt_standard_project_setup()
 
-include_directories (${GTK_INCLUDE_DIRS})
-link_directories (${GTK_LIBRARY_DIRS})
-add_executable (NeutronEditor ${NEUTRON_LIB_INCLUDE_FILES} ${NEUTRON_LIB_SOURCE_FILES})
-add_definitions (${GTK_CFLAGS_OTHER})
-target_link_libraries (NeutronEditor NeutronLogger ${GTK_LIBRARIES})
-target_link_libraries (NeutronEditor NeutronLogger )
+add_executable (NeutronEditor ${NEUTRON_LIB_INCLUDE_FILES} ${NEUTRON_LIB_SOURCE_FILES} NeutronEditor/src/MainWindow.cpp NeutronEditor/src/MainWindow.h NeutronEditor/src/main.cpp)
+target_link_libraries (NeutronEditor NeutronLogger boost_stacktrace_backtrace Qt6::Widgets)
+
+qt_add_resources(RC_SRC "resources/qml.qrc")
+
+add_library(myGame SHARED ${ALL_SOURCES} ${RC_SRC})
 
 
 ## ---------- NeutronEngine ---------- ##
@@ -53,6 +54,7 @@ target_link_libraries(NeutronEngine NeutronLogger boost_stacktrace_backtrace glf
 project(NeutronExampleC++ DESCRIPTION "An example project for NeutronEngine made with pure cpp")
 
 project(NeutronExampleC++)
+
 file(GLOB_RECURSE NEC_FILES "./NeutronExample/cpp/*")
 add_executable(NeutronExampleC++ ${NEC_FILES})
 target_link_libraries(NeutronExampleC++ NeutronEngine)
@@ -67,3 +69,5 @@ file(GLOB_RECURSE NEL_FILES "./NeutronExample/Logging/*")
 add_executable(NeutronExampleLogging ${NEL_FILES})
 target_link_libraries(NeutronExampleLogging NeutronEngine)
 include_directories(NeutronEngine/Neutron/include)
+
+project(NeutronEngine) # this is literally just here because CLion uses the last CMake project as the project name, so this is just here to make it say NeutronEngine instead of NeutronExampleLogging
