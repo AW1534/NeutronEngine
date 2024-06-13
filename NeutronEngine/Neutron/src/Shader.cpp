@@ -101,7 +101,7 @@ namespace Neutron {
         GLint program_linked;
 
         glGetProgramiv(program, GL_LINK_STATUS, &program_linked);
-        Logger::Log("Program link status" + std::to_string((bool)program_linked), "NEUTRON");
+        Logger::Log("Program link status: " + std::to_string((bool)program_linked), "NEUTRON");
         if (program_linked != GL_TRUE)
         {
             GLsizei log_length = 0;

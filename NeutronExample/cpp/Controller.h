@@ -19,6 +19,7 @@ public:
     Window* window;
     GameObject* go;
     unsigned int health;
+    std::shared_ptr<Input::InputSystem> is;
 
     void Awake() {
 
@@ -31,22 +32,31 @@ public:
         this->window = (Window*)this->win;
         Logger::Log("among us");
 
-        std::shared_ptr<Input::InputSystem> is = this->window->inputSystem;
+        is = this->window->inputSystem;
 
         Logger::Log("among us");
 
         Logger::Assert(is != nullptr, "Input system is null", 5);
 
-        auto iv = (*is).GetValue<Input::InputAxis2D*>("move");
 
         Logger::Log("among us");
 
         Logger::Log("New player created!");
 
+        Neutron::EventSystem::get("inputPress")->on([this](EventArgs args){
+            int key = *EventSystem::GetArg<int*>(args, "key");
+
+            Logger::Log(std::to_string(this->is->keys.find(GLFW_KEY_W)->second));
+            Logger::Log(std::to_string(key) + " Was pressed!!");
+            return;
+        });
+
     }
 
     void Update() {
-        //Logger::Log("b");
+        Logger::Log(std::to_string(is->keyDown(GLFW_KEY_W)));
+
+
     }
 
     void InputPress(InputArgs args) {

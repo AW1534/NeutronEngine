@@ -44,11 +44,10 @@ int main(int argc, char *argv[]) {
 
         shader = new Shader("/home/aw1lt/CLionProjects/NeutronEngine/NeutronExample/cpp/player.frag");
 
-        Logger::Warn("hi", "NEUTRON");
         player->GetComponent<MeshRendererComponent>()->shader =shader;
 
         GameObject* r = new GameObject();
-        r->AddComponent<Controller>();
+        //r->AddComponent<Controller>();
         r->AddComponent<MeshRendererComponent>()->setShape(vertices);
         win->AddGameObject(r);
 

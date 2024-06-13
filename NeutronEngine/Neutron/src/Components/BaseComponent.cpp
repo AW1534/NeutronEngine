@@ -63,7 +63,7 @@ namespace Neutron {
             iArgs.mods = *(int*)args["mods"];
             iArgs.scancode = *(int*)args["scancode"];
 
-            this->InputRepeat(iArgs);
+            this->handleMethod(Input::Type::REPEAT, iArgs);
         });
 
         EventSystem::get("input")->on([this](EventArgs args) {

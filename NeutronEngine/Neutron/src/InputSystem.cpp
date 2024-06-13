@@ -8,14 +8,15 @@
 #include <GLFW/glfw3.h>
 
 namespace Neutron::Input {
-    void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    static void key_callback_wrapper(GLFWwindow* window, int key, int scancode, int action, int mods) {
+        InputSystems.find(window)->second->key_callback(key, scancode, action, mods);
+    }
+
+    void InputSystem::key_callback(int key, int scancode, int action, int mods) {
         EventArgs args;
 
-        for (auto it : windows) {
-            if (it->glfwWindow == window) {
-                args["window"] = it;
-            }
-        }
+        args["inputSystem"] = this; // TODO: this is for debugging purposes.
+        args["window"] = this->window;
 
         args["key"] = &key;
         args["scancode"] = &scancode;
@@ -24,19 +25,24 @@ namespace Neutron::Input {
 
 
         EventSystem::broadcast("input", args, false);
+        Logger::Log(std::to_string(key));
 
         switch (action) {
             case GLFW_PRESS:
+                this->keys.find(key)->second = true;
+                Logger::Assert(this->keys.find(key)->second, "Input System check failed", 4, "NEUTRON");
                 Logger::Info("inputPress", "NEUTRON");
                 EventSystem::broadcast("inputPress", args, false);
                 break;
 
             case GLFW_RELEASE:
+                this->keys.find(key)->second = false;
                 Logger::Info("inputRelease", "NEUTRON");
                 EventSystem::broadcast("inputRelease", args, false);
                 break;
 
             case GLFW_REPEAT:
+                this->keys.find(key)->second = true;
                 Logger::Info("inputRepeat", "NEUTRON");
                 EventSystem::broadcast("inputRepeat", args, false);
 
@@ -46,8 +52,26 @@ namespace Neutron::Input {
     }
 
     InputSystem::InputSystem(GLFWwindow *win) {
-        Logger::Log("test");
-        glfwSetKeyCallback(win, key_callback);
+        InputSystems.insert({win, this});
+
+        for (int i = GLFW_KEY_SPACE; i <= GLFW_KEY_LAST; ++i) {
+            keys[i] = false;
+        }
+
+        this->window = win;
+        glfwSetKeyCallback(win, key_callback_wrapper);
+    }
+
+    InputSystem::~InputSystem() {
+        InputSystems.erase(this->window);
+    }
+
+    bool InputSystem::keyDown(int key) {
+        auto it = this->keys.find(key);
+        if (it != this->keys.end()) {
+            return it->second;
+        }
+        return false;
     }
 
     Math::Vector2 InputAxis2D::raw() const {
