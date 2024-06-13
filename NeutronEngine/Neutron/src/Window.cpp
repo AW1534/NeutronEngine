@@ -113,6 +113,8 @@ namespace Neutron {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             UpdateObjects();
 
+
+
             /* Swap front and back buffers */
             glfwSwapBuffers(this->glfwWindow);
 

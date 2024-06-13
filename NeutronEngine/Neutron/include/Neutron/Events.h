@@ -56,7 +56,7 @@ namespace Neutron {
         static void deconst();
 
         template <typename T>
-        static T getArg(Neutron::EventArgs args, std::string name) {
+        static T GetArg(Neutron::EventArgs args, std::string name) {
             return ((T)args[name]);
         }
     };

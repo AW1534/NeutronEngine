@@ -5,10 +5,19 @@
 #include <iostream>
 #include <Logger/Logger.h>
 
-
+#include <map>
 
 int main(int argc, char* argv[]) {
     Logger::Config::level = 0; // Info and above
+
+    std::map<int, bool> map;
+
+    map.insert({10, true});
+    map.insert({101231, false});
+
+    Logger::Log(map);
+
+    Logger::Info("hey\ndude");
 
     Logger::Info("This is an info message. (lvl 1) The only difference between ::Log and ::Info is their logging levels. the required level can be set by the ::level property");
     Logger::Info("This is an info message... With a namesapce", "NAMESPACE");
