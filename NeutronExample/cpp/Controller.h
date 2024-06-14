@@ -9,7 +9,7 @@
 
 #include <memory>
 #include <Neutron/Components/BaseComponent.h>
-#include <Logger/Logger.h>
+#include "Logger.h"
 #include <optional>
 
 using namespace Neutron;

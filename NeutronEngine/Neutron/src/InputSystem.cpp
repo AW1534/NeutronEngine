@@ -1,7 +1,7 @@
 //
 // Created by aw1lt on 24/11/22.
 //
-#include <Logger/Logger.h>
+#include "Logger.h"
 #include "Neutron/Events.h"
 #include "Neutron/InputSystem.h"
 

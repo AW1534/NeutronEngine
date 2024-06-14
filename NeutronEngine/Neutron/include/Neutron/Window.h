@@ -16,6 +16,7 @@
 #include "GameObject.h"
 
 #include "Neutron/macros/dll.h"
+#include "Image.h"
 
 // TODO: create a better window management system with proper multithreading
 
@@ -58,6 +59,9 @@ namespace Neutron {
         void on(char *name, Callback cb);
 
         void AddGameObject(GameObject *go);
+
+        void setIcon(const std::string& icon_path) const;
+        void setIcon(Image icon) const;
 
     private:
         void Constructor(char *title, int width, int height, bool fs, int id);

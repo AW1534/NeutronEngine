@@ -51,9 +51,14 @@ set(LOGGER_DEPS boost_stacktrace_backtrace)
 project(NeutronEngine DESCRIPTION "A libre Game Engine written in C++")
 
 file(GLOB_RECURSE NEUTRON_LIB_INCLUDE_FILES "./NeutronEngine/Neutron/include/*.h")
+file(GLOB_RECURSE NEUTRON_SOURCE_FILES "./NeutronEngine/Neutron/src/*.cpp")
 
-add_library(NeutronEngine STATIC  NeutronEngine/Neutron/src/Math/Vector2.cpp NeutronEngine/Neutron/src/Events.cpp NeutronEngine/Neutron/src/Window.cpp NeutronEngine/Neutron/src/Color.cpp NeutronEngine/Neutron/src/Components/RendererComponents.cpp NeutronEngine/Neutron/src/Math/Axis.cpp NeutronEngine/Neutron/src/InputSystem.cpp NeutronEngine/Neutron/src/Components/BaseComponent.cpp NeutronEngine/Neutron/src/Helper.cpp NeutronEngine/Neutron/src/Components/Transform.cpp NeutronEngine/Neutron/src/Shader.cpp NeutronEngine/Neutron/include/Neutron/Shader.h NeutronEngine/Neutron/src/Utils/Files.cpp NeutronEngine/Neutron/src/Utils/Files.cpp NeutronEngine/Neutron/src/Helper.cpp NeutronEngine/Neutron/include/Neutron/Utils/Files.h NeutronEngine/Neutron/include/Neutron/macros/ansi.h)
+
+add_library(NeutronEngine STATIC ${NEUTRON_SOURCE_FILES} ${NEUTRON_LIB_INCLUDE_FILES})
+message(${NEUTRON_SOURCE_FILES})
 target_link_libraries(NeutronEngine ${LOGGER_DEPS} glfw GLEW GLU GL Xrandr Xxf86vm Xi Xinerama X11 rt dl mono-2.0 m pthread)
+set(DEPENDENCY_INCLUDE_DIR "./NeutronEngine/include/")
+include_directories(${DEPENDENCY_INCLUDE_DIR})
 
 ## -------- NeutronExampleC++ -------- ##
 

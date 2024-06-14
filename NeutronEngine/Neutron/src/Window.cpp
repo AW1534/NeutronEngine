@@ -71,6 +71,7 @@ namespace Neutron {
         this->id = id;
         // Create Window
         this->glfwWindow = CreateWindow(width, height, title, fs ? glfwGetPrimaryMonitor() : nullptr, nullptr);
+        this->setIcon("../branding/NeutronEngine.png");
         this->vulkanSupported = glfwVulkanSupported();
 
         this->inputSystem = std::make_shared<Input::InputSystem>(this->glfwWindow);
@@ -238,5 +239,20 @@ namespace Neutron {
                 cb(data);
             }
         });
+    }
+
+    void Window::setIcon(const std::string& icon_path) const {
+        setIcon(Image(icon_path));
+    }
+
+    void Window::setIcon(Image icon) const {
+        GLFWimage images[1];
+        images[0] = (GLFWimage)icon;
+        if (images[0].pixels == nullptr) {
+            Logger::Warn("Window Icon couldn't be set. Image loading failed.");
+            return;
+        }
+
+        glfwSetWindowIcon(this->glfwWindow, 1, images);
     }
 }

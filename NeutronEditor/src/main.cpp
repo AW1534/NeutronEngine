@@ -2,7 +2,7 @@
 // Created by awilt on 18/12/22.
 //
 
-#include <Logger/Logger.h>
+#include "Logger.h"
 #include <QApplication>
 
 #include "MainWindow.h"

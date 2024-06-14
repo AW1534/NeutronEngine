@@ -2,7 +2,7 @@
 // Created by aw1lt on 06/12/22.
 //
 
-#include <Logger/Logger.h>
+#include "Logger.h"
 #include <Neutron/Components/RendererComponents.h>
 #include <Neutron/Window.h>
 

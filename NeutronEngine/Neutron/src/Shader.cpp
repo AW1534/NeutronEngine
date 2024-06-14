@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "Neutron/Shader.h"
-#include <Logger/Logger.h>
+#include "Logger.h"
 
 namespace Neutron {
     Shader Shader::ParseShader(const std::string &filepath) {
