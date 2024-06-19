@@ -26,7 +26,7 @@ namespace Neutron {
         }
     }
 
-    void BaseComponent::_Awake(void* win, void* go) {
+    void BaseComponent::pre_Awake(void* win, void* go) {
         this->win = win;
         this->gameObject = go;
         this->Awake();
@@ -78,7 +78,7 @@ namespace Neutron {
         });
     }
 
-    void BaseComponent::_Start() {
+    void BaseComponent::pre_Start() {
         this->Start();
     }
 
@@ -102,7 +102,7 @@ namespace Neutron {
     }
 
     void BaseComponent::InputPress(InputArgs args) {
-        Logger::Log("hi");
+
     }
 
     void BaseComponent::InputRelease(InputArgs args) {

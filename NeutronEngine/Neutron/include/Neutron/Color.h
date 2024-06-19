@@ -18,10 +18,10 @@ namespace Neutron {
         float blue = 255;
         float alpha = 255;
 
-        Color(float red, float green, float blue, float alpha);
+        Color(float red, float green, float blue, float alpha = 255);
         [[nodiscard]] Color Normalise(int num = 1) const;
 
-        explicit operator std::string();
+        operator std::string();
     };
 }
 

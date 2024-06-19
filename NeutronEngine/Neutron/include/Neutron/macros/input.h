@@ -5,7 +5,7 @@
 #ifndef NEUTRONENGINE_INPUT_H
 #define NEUTRONENGINE_INPUT_H
 /* The unknown key */
-#define KEY_UNKNOWN            -1
+#define KEY_UNKNOWN            (-1)
 
 /* Printable keys */
 #define KEY_SPACE              32

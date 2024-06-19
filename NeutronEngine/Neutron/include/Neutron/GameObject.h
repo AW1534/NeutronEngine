@@ -27,13 +27,13 @@ namespace Neutron {
         virtual void _Awake(void* win) {
             this->transform = AddComponent<Transform>();
             for (std::shared_ptr<BaseComponent> component : this->components) {
-                component->_Awake(win, this);
+                component->pre_Awake(win, this);
             }
         }
 
         virtual void _Start() {
             for (std::shared_ptr<BaseComponent> component : this->components) {
-                component->_Start();
+                component->pre_Start();
             }
         }
 

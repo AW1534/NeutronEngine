@@ -2,11 +2,13 @@
 // Created by aw1lt on 08/12/22.
 //
 
-#ifndef NEUTRONEXAMPLEC_SHADER_H
-#define NEUTRONEXAMPLEC_SHADER_H
+#ifndef NEUTRONENGINE_SHADER_H
+#define NEUTRONENGINE_SHADER_H
 
+//TODO: Shaders seem to crash when using default
 
 #include <string>
+#include "glm/fwd.hpp"
 
 namespace Neutron {
     class Shader {
@@ -30,8 +32,10 @@ namespace Neutron {
                                                  "    color = vec4(1, 1, 1, 1);\n"
                                                  "}";
 
-        Shader(std::string vs, std::string fs);
-        Shader(std::string path);
+
+
+        Shader(const std::string& vs, const std::string& fs);
+        explicit Shader(const std::string& path);
         ~Shader();
 
         static Shader ParseShader(const std::string& filepath);
@@ -41,13 +45,15 @@ namespace Neutron {
         void setBool(const std::string &name, bool value) const;
         void setInt(const std::string &name, int value) const;
         void setFloat(const std::string &name, float value) const;
+        void setMat4(const std::string& name, const glm::mat4& mat) const; // TODO: use Math::Matrix
 
-        void Enable();
-        void Disable();
 
-        void Constructor(std::string vs, std::string fs);
+        void Enable() const;
+        static void Disable();
+
+        void Constructor(const std::string& vs, const std::string& fs);
     };
 
 }
 
-#endif //NEUTRONEXAMPLEC_SHADER_H
+#endif //NEUTRONENGINE_SHADER_H

@@ -2,8 +2,8 @@
 // Created by aw1lt on 07/12/22.
 //
 
-#ifndef NEUTRONEXAMPLEC_TRANSFORM_H
-#define NEUTRONEXAMPLEC_TRANSFORM_H
+#ifndef NEUTRONENGINE_TRANSFORM_H
+#define NEUTRONENGINE_TRANSFORM_H
 
 #include "BaseComponent.h"
 #include "Neutron/Math/Vector2.h"
@@ -19,4 +19,4 @@ namespace Neutron {
 
 } // Neutron
 
-#endif //NEUTRONEXAMPLEC_TRANSFORM_H
+#endif //NEUTRONENGINE_TRANSFORM_H

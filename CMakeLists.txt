@@ -51,12 +51,12 @@ set(LOGGER_DEPS boost_stacktrace_backtrace)
 project(NeutronEngine DESCRIPTION "A libre Game Engine written in C++")
 
 file(GLOB_RECURSE NEUTRON_LIB_INCLUDE_FILES "./NeutronEngine/Neutron/include/*.h")
-file(GLOB_RECURSE NEUTRON_SOURCE_FILES "./NeutronEngine/Neutron/src/*.cpp")
+file(GLOB_RECURSE NEUTRON_SOURCE_FILES "./NeutronEngine/Neutron/src/*.cpp" "./NeutronEngine/Neutron/src/*.c")
 
 
 add_library(NeutronEngine STATIC ${NEUTRON_SOURCE_FILES} ${NEUTRON_LIB_INCLUDE_FILES})
 message(${NEUTRON_SOURCE_FILES})
-target_link_libraries(NeutronEngine ${LOGGER_DEPS} glfw GLEW GLU GL Xrandr Xxf86vm Xi Xinerama X11 rt dl mono-2.0 m pthread)
+target_link_libraries(NeutronEngine ${LOGGER_DEPS} glfw Xrandr Xxf86vm Xi Xinerama X11 rt dl mono-2.0 m pthread)
 set(DEPENDENCY_INCLUDE_DIR "./NeutronEngine/include/")
 include_directories(${DEPENDENCY_INCLUDE_DIR})
 

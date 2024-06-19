@@ -1,13 +1,21 @@
 //
 // Created by awilt on 21/10/22.
 //
-#include <GL/glew.h>
+#include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
 #include "Neutron/Window.h"
 #include "Neutron/Shader.h"
+#include "Logger.h"
 
 namespace Neutron {
+
+    void MessageCallback( GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam ) {
+        //TODO: switch this to Neutron Logger
+        fprintf( stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+        ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
+        type, severity, message );
+    }
 
     GLFWwindow *CreateWindow(int width, int height, const char *title, GLFWmonitor *monitor, GLFWwindow *share) {
         GLFWwindow *window;
@@ -17,18 +25,34 @@ namespace Neutron {
             return nullptr;
         }
 
+        glfwDefaultWindowHints();
+        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
         window = glfwCreateWindow(width, height, title, monitor, share);
         if (!window) {
             glfwTerminate();
         }
 
+
         glfwMakeContextCurrent(window);
 
-        GLenum glewErr = glewInit();
-
-        if (glewErr != GLEW_OK) {
-            Logger::Warn(std::string((char*)glewGetErrorString(glewErr)), "NEUTRON");
+        auto version = gladLoadGL(glfwGetProcAddress);
+        if (version) {
+            Logger::Log("Loaded version '" + Logger::AsString(version) + "'", "OPENGL");
+        } else {
+            Logger::Warn("Failed to load", "OPENGL");
+            throw; // or whatever
         }
+
+        Logger::Assert(GL_ARB_separate_shader_objects, "GL_ARB_separate_shader_objects not supported");
+
+        glEnable( GL_DEBUG_OUTPUT );
+        glDebugMessageCallback( MessageCallback, 0 );
 
         return window;
     }
@@ -122,15 +146,14 @@ namespace Neutron {
             /* Poll for and process events */
             glfwPollEvents();
 
-            GLenum err = glGetError();
-            if (err) {
-                std::string e = (char *) (intptr_t) err;
-                std::string txt = "ERROR";
-
-                Logger::Warn(txt + e);
-
-            }
-            glfwSetTime(0);
+//            GLenum err = glGetError();
+//            if (err) {
+//                auto e = gluErrorString(err);
+//
+//                Logger::Warn("GL Error: " + Logger::AsString(e), "OPENGL");
+//
+//            }
+//            glfwSetTime(0);
         }
     }
 

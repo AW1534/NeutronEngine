@@ -18,20 +18,6 @@ namespace Neutron {
 
     EXPORT std::vector<std::string> split(std::string string, std::string delimiter = "\n");
 
-    template <typename T, typename J>
-    EXPORT T join(std::vector<T> list, J join = " ") {
-        T res;
-
-        int len = list.size();
-        int i = 1;
-        for (T x : list) {
-            res += x + (i == len ? "" : (std::string)join);
-            i++;
-        }
-
-        return res;
-    }
-
     int parseInt(std::string str);
 }
 

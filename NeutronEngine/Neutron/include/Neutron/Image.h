@@ -9,25 +9,44 @@
 
 #include "Logger.h"
 #include <GLFW/glfw3.h>
+#include "Math/Vector2.h"
 
-class Image {
-public:
-    int width{};
-    int height{};
-    int channels{};
+namespace Neutron {
+    enum ImageChannels {
+        GRAYSCALE = 1,
+        TWO_CHANNELS = 2,
+        RGB = 3,
+        RGBA = 4
+    };
 
-    bool loaded = false;
-    unsigned char* image;
+    class Image {
+    public:
+        unsigned char* data;
+        int width{};
+        int height{};
+        ImageChannels channels{};
 
-    explicit Image(std::string path);
+        bool loaded = false;
 
-    ~Image();
+        void resize(int width, int height);
 
-    GLFWimage asGlfwImage();
+        explicit Image(std::string path, Math::Vector2);
+        explicit Image(std::string path, int width, int height);
+        explicit Image(std::string path);
 
-    explicit operator GLFWimage() {
-        return asGlfwImage();
-    }
-};
+        ~Image();
 
+        GLFWimage asGlfwImage();
+
+        explicit operator GLFWimage() {
+            return asGlfwImage();
+        }
+
+    protected:
+        int actualWidth{};
+        int actualHeight{};
+        void Constructor(std::string path);
+    };
+
+}
 #endif //NEUTRONENGINE_IMAGE_H

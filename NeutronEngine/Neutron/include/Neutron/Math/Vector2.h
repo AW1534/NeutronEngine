@@ -7,7 +7,6 @@
 
 #include <string>
 #include "Matrix.h"
-#include "Neutron/Proxy.h"
 
 #include "Neutron/macros/dll.h"
 
@@ -15,16 +14,16 @@ namespace Neutron::Math {
     class EXPORT Vector2 : public Matrix<3, 1> {
     public:
         Vector2();
-        Vector2(double, double);
+        Vector2(float, float);
         Vector2(const Vector2& original);
         Vector2(const Matrix &original);
 
-        Proxy<double> x;
-        Proxy<double> y;
-        [[nodiscard]] double getMagnitude();
-        [[nodiscard]] double getRadians();
-        [[nodiscard]] double getDegrees();
-        void Normalize(double);
+        float x;
+        float y;
+        [[nodiscard]] float getMagnitude();
+        [[nodiscard]] float getRadians();
+        [[nodiscard]] float getDegrees();
+        void Normalize(float);
 
         Vector2 movedBy(const Vector2 other);
         Vector2 scaledBy(const Vector2 other);
@@ -39,7 +38,9 @@ namespace Neutron::Math {
         double& operator ()(unsigned int x = 0, unsigned int y = 0) = delete;
         double operator ()(unsigned int x = 0, unsigned int y = 0) const = delete;
 
-        void Constructor(double x, double y);
+        operator std::string();
+
+        void Constructor(float x, float y);
     };
 }
 

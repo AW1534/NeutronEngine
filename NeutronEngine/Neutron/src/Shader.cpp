@@ -4,11 +4,12 @@
 
 #include <fstream>
 #include <sstream>
-#include <GL/glew.h>
+#include <glad/gl.h>
 #include <vector>
 
 #include "Neutron/Shader.h"
 #include "Logger.h"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace Neutron {
     Shader Shader::ParseShader(const std::string &filepath) {
@@ -17,13 +18,16 @@ namespace Neutron {
         std::string line;
         std::stringstream ss[2] = {};
         int type = ShaderType::NONE;
-        if (filepath.ends_with(".vert"))
+        if (filepath.ends_with(".vert") || filepath.ends_with(".vertex"))
             type = ShaderType::VERTEX;
-        else if (filepath.ends_with(".frag"))
+        else if (filepath.ends_with(".frag") || filepath.ends_with(".fragment"))
             type = ShaderType::FRAGMENT;
 
 
         while (getline(stream, line)) {
+            if (line.starts_with("//")) { // ignore comments
+                continue;
+            }
             if (line.find("#shader") != std::string::npos) {
                 if (line.find("vertex") != std::string::npos)
                     type = ShaderType::VERTEX;
@@ -33,8 +37,8 @@ namespace Neutron {
             else {
                 if (type != ShaderType::NONE) {
                     ss[(int)type] << line << '\n';
-                } else if(line != "") {
-                    Logger::Log("Shader code, But no Type has been detected yet. Visit (URL) to learn more.");
+                } else if(!line.empty()) {
+                    Logger::Warn("Shader code, But no Type has been detected yet. use #shader [type] to set the type");
                 }
             }
         }
@@ -58,17 +62,18 @@ namespace Neutron {
             GLint log_length;
             glGetShaderiv(id, GL_INFO_LOG_LENGTH, &log_length);
             std::vector<char> v(log_length);
-            glGetShaderInfoLog(id, log_length, NULL, v.data());
+            glGetShaderInfoLog(id, log_length, nullptr, v.data());
             std::string s(begin(v), end(v));
 
             Logger::Warn(s, "NEUTRON");
 
-            int length;
+            int length = 0;
             glGetShaderiv(id, GL_INFO_LOG_LENGTH, &result);
             char* message = (char*)alloca(length * sizeof(char));
             glGetShaderInfoLog(id, length, &length, message);
             Logger::Warn("Failed to compile " + std::string(type == GL_VERTEX_SHADER ? "vertex" : "fragment") + "shader\n" + message, "NEUTRON");
             glDeleteShader(id);
+            Logger::Log("hey");
             return 0;
         }
 
@@ -78,16 +83,16 @@ namespace Neutron {
     static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader) {
         // create a shader program
         unsigned int program = glCreateProgram();
-        Logger::Log(std::to_string(program));
+        //Logger::Log(std::to_string(program));
 
         unsigned int vs = 0;
         unsigned int fs = 0;
 
-        if (vertexShader != "") {
+        if (!vertexShader.empty()) {
             vs = Shader::CompileShader(GL_VERTEX_SHADER, vertexShader);
         }
 
-        if (fragmentShader != "") {
+        if (!fragmentShader.empty()) {
             fs = Shader::CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
         }
 
@@ -101,7 +106,7 @@ namespace Neutron {
         GLint program_linked;
 
         glGetProgramiv(program, GL_LINK_STATUS, &program_linked);
-        Logger::Log("Program link status: " + std::to_string((bool)program_linked), "NEUTRON");
+        Logger::Log("Shader Program (" + std::to_string(program) + ") link status: " + std::to_string((bool)program_linked), "NEUTRON");
         if (program_linked != GL_TRUE)
         {
             GLsizei log_length = 0;
@@ -115,21 +120,20 @@ namespace Neutron {
         glDeleteShader(vs);
         glDeleteShader(fs);
 
-
         return program;
     }
 
-    void Shader::Constructor(std::string vs, std::string fs) {
+    void Shader::Constructor(const std::string& vs, const std::string& fs) {
         this->VertexSource = vs;
         this->FragmentSource = fs;
         this->id = CreateShader(vs, fs);
     }
 
-    Shader::Shader(std::string vs, std::string fs) {
+    Shader::Shader(const std::string& vs, const std::string& fs) {
         Constructor(vs, fs);
     }
 
-    Shader::Shader(std::string path) {
+    Shader::Shader(const std::string& path) {
         Shader s = ParseShader(path);
         Constructor(s.VertexSource, s.FragmentSource);
     }
@@ -143,10 +147,14 @@ namespace Neutron {
     }
 
     void Shader::setFloat(const std::string &name, float value) const {
-        glUniform1i(glGetUniformLocation(this->id, name.c_str()), value);
+        glUniform1f(glGetUniformLocation(this->id, name.c_str()), value);
     }
 
-    void Shader::Enable() {
+    void Shader::setMat4(const std::string &name, const glm::mat4 &mat) const {
+        glUniformMatrix4fv(glGetUniformLocation(this->id, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat));
+    }
+
+    void Shader::Enable() const {
         glUseProgram(this->id);
     }
 
@@ -155,6 +163,7 @@ namespace Neutron {
     }
 
     Shader::~Shader() {
+        Disable();
         glDeleteProgram(this->id);
     }
 

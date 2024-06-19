@@ -9,18 +9,41 @@
 #include "vector"
 #include "BaseComponent.h"
 #include "Neutron/Shader.h"
+#include "Neutron/Texture.h"
+#include "Neutron/Color.h"
 
 namespace Neutron {
-    std::vector<int> generateIndexBuffer(std::vector<Math::Vector2> vertices);
+
+    std::vector<unsigned int> GenerateIndexBuffer(const std::vector<Math::Vector2>& vertices);
+    std::vector<Color> GenerateColorMap(std::vector<Math::Vector2> &vertices, Color color);
+
+    std::vector<float> PrimitiveVertexBuffer(std::vector<Math::Vector2> &vertices);
+    std::vector<float> PrimitiveVertexBuffer(std::vector<Math::Vector2> &vertices, Color color);
+    std::vector<float> PrimitiveVertexBuffer(std::vector<Math::Vector2>& vertices, std::vector<Color>& colors);
+
+    struct Vertex {
+        float x, y;         // Position
+        float r, g, b, a;    // Color
+        float u, v;         // Texture coordinates
+    };
 
     class MeshRendererComponent : public BaseComponent {
     public:
-        std::vector<int> indexBuffer {};
-        std::vector<Math::Vector2> vertices {};
-        Shader* shader;
+        bool visible = true;
 
-        MeshRendererComponent* setShape(std::vector<Math::Vector2> vertices, std::vector<int> indexBuffer = {});
-        void Draw(bool vulkan);
+        std::vector<unsigned int> indexBuffer {};
+        std::vector<Math::Vector2> vertexBuffer {};
+        Shader* shader;
+        Texture* texture;
+        GLuint vao = 0;
+        GLuint vbo = 0;
+        GLuint ebo = 0;
+
+        MeshRendererComponent* setShape(std::vector<Math::Vector2> vertexBuffer, std::vector<unsigned int> indexBuffer, Color color = {255, 255, 255});
+        MeshRendererComponent* setShape(std::vector<Math::Vector2> vertexBuffer, std::vector<unsigned int> indexBuffer = {}, std::vector<Color> = {});
+
+        void Draw(bool vulkan) override;
+        ~MeshRendererComponent();
     };
 
 } // Neutron

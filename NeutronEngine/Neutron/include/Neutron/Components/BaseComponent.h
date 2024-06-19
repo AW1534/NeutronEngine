@@ -20,13 +20,11 @@ namespace Neutron {
         void* win;
         void* gameObject;
 
-        bool visible = true;
-
         BaseComponent();
         ~BaseComponent();
-        virtual void _Awake(void* win, void* go);
+        virtual void pre_Awake(void* win, void* go);
         virtual void Awake();
-        virtual void _Start();
+        virtual void pre_Start();
         virtual void Start();
         virtual void Update();
         virtual void Draw(bool vulkan);

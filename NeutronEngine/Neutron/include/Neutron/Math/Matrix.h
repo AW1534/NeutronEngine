@@ -19,21 +19,19 @@ namespace Neutron::Math {
         unsigned int width = W;
         unsigned int height = H;
 
-        double data [W][H];
+        float data [W][H];
 
-        double& operator ()(unsigned int x = 0, unsigned int y = 0) {
+        float& operator ()(unsigned int x = 0, unsigned int y = 0) {
             Logger::Assert(x < width && y < height, "Index out of bounds", 5);
 
             return data[x][y];
         }
 
-        double operator ()(unsigned int x = 0, unsigned int y = 0) const {
+        float operator ()(unsigned int x = 0, unsigned int y = 0) const {
             Logger::Assert(x < width && y < height, "Index out of bounds", 5);
 
             return data[x][y];
         }
-
-
 
         Matrix<W, H> operator +(const Matrix<W, W> other) {
             Matrix<W, H> res;
