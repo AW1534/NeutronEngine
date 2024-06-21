@@ -24,7 +24,7 @@ namespace Neutron {
         unsigned char* data;
         int width{};
         int height{};
-        ImageChannels channels{};
+        int channels{};
 
         bool loaded = false;
 

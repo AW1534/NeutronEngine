@@ -35,30 +35,31 @@ int main(int argc, char *argv[]) {
 //                Math::Vector2(0.0, -0.5)
 //        };
 
-//        std::vector<Math::Vector2> vertices = {
-//                Math::Vector2(0.5f,  0.5f),  // top right
-//                Math::Vector2(0.5f, -0.5f),  // bottom right
-//                Math::Vector2(-0.5f, -0.5f), // bottom left
-//                Math::Vector2(-0.5f,  0.5f)  // top left
-//        };
-
-
         std::vector<Math::Vector2> vertices = {
-                Math::Vector2(0.5f,  -0.5f),  // top
-                Math::Vector2(-0.5f, -0.5f),  // bottom right
-                Math::Vector2(0.0f, 0.5f), // bottom left
+                Math::Vector2(0.5f,  0.5f),  // top right
+                Math::Vector2(0.5f, -0.5f),  // bottom right
+                Math::Vector2(-0.5f, -0.5f), // bottom left
+                Math::Vector2(-0.5f,  0.5f)  // top left
         };
 
+
+//        std::vector<Math::Vector2> vertices = {
+//                Math::Vector2(0.5f,  -0.5f),  // top
+//                Math::Vector2(-0.5f, -0.5f),  // bottom right
+//                Math::Vector2(0.0f, 0.5f), // bottom left
+//        };
+
         std::vector<Color> colors = {
-                {1.0f, 0.0f, 0.0f},  // bottom right
-                {0.0f, 1.0f, 0.0f},  // bottom left
-                {0.0f, 0.0f, 1.0f}   // top
+                {1.0f, 0.0f, 0.0f},
+                {0.0f, 1.0f, 0.0f},
+                {0.0f, 0.0f, 1.0f},
+                {0.0f, 0.0f, 0.0f},
         };
 
         win->bg = Color(255, 0, 255, 255);
 
         GameObject* player = new GameObject();
-        p_tex = new Texture("../branding/logtex.jpeg");
+        p_tex = new Texture("../branding/LogSide.png");
         //player->AddComponent<Controller>();
         player->AddComponent<MeshRendererComponent>()->setShape(vertices, {}, colors);
         //player->GetComponent<MeshRendererComponent>()->texture = p_tex;

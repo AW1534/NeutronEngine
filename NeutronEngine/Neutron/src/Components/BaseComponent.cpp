@@ -31,8 +31,6 @@ namespace Neutron {
         this->gameObject = go;
         this->Awake();
 
-        Window* wwin = (Window*) win;
-
         EventSystem::get("inputPress")->on([this](EventArgs args) {
             InputArgs iArgs;
 
@@ -74,7 +72,7 @@ namespace Neutron {
             iArgs.mods = *(int*)args["mods"];
             iArgs.scancode = *(int*)args["scancode"];
 
-            this->Input(iArgs);
+            this->handleMethod(Input::Type::GENERIC, iArgs);
         });
     }
 

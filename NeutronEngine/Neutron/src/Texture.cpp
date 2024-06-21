@@ -27,6 +27,8 @@ namespace Neutron {
             format = GL_RGBA;
         }
 
+        format = GL_RGBA; // TODO: FIX THE TEXTURES PLEASEEEEE
+
         glTexImage2D(GL_TEXTURE_2D, 0, format, image.width, image.height, 0, format, GL_UNSIGNED_BYTE, image.data);
         glGenerateMipmap(GL_TEXTURE_2D);
     }

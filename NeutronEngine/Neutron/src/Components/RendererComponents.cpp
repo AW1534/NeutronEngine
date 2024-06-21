@@ -115,9 +115,7 @@ namespace Neutron {
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0); // no need to unbind it every time
 
-        if (shader) {
-            shader->Disable();
-        }
+        Neutron::Shader::Disable();
 
         GLenum error = glGetError();
         if (error != GL_NO_ERROR) {
@@ -143,6 +141,11 @@ namespace Neutron {
         this->vertexBuffer = std::move(vertexBuffer);
 
         std::vector<float> vertices = PrimitiveVertexBuffer(this->vertexBuffer, colors);
+
+        if (shader) {
+            this->shader->Enable();
+            this->shader->setInt("texture1", 0);
+        }
 
         glGenVertexArrays(1, &vao);
         glGenBuffers(1, &vbo);

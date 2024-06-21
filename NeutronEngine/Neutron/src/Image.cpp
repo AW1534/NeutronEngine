@@ -30,7 +30,7 @@ namespace Neutron {
 
         data = stbi_load(path.c_str(), &actualWidth, &actualHeight, &temp_channels, 4);
 
-        channels = static_cast<ImageChannels>(temp_channels);
+        channels = temp_channels;
 
         Logger::Assert(data != nullptr, "Failed to load '" + path + "'", 3);
 
